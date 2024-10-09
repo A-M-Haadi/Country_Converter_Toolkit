@@ -197,5 +197,3 @@ def currency_conversion(amount, from_currency, to_currency):
     else:
         result = "{:,.2f}".format(converted_amount).replace(",", ".")
     return result 
-
-print(currency_conversion(10, 'IDR', 'USD'))
