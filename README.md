@@ -21,7 +21,7 @@
 To install the Country Converter Toolkit package, use pip:
 
 ```bash
-pip install Country-Converter-Toolkit
+pip install Country_Converter_Toolkit
 ```
 
 ## how to use
