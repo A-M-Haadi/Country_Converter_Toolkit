@@ -73,24 +73,26 @@ print(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00))
 ## About The Module
 This package consists of the following modules:
 
-### `Modul_1`
+### `Module_1`
+#### `search_country_code(country_name) : str`
+This function contains the country name and country code
 
 **usage example:**
 ```python
 from Modul.modul1 import search_country_code
-search_country_code('Country Name')
+search_country_code('Indonesia')
 ```
 
 **output:**
 ```
-Country Code
+ID
 ```
+### Module_1 Notes:
+- The country name entered must use capital letters in the first part of the country name.
+  
+- If the country name entered does not exist or the user enters something other than the country name, "country not found" will appear.
 
-*The country name entered must use capital letters in the first part of the country name.*
-
-*If the country name entered does not exist or the user enters something other than the country name, "country not found" will appear.*
-
-### 'Modul_2'
+### `Modul_2`
 
 This function is used to get a country's info based on the country name entered
 
@@ -132,7 +134,7 @@ Indonesian
 - Make sure to use the correct capitalization for the codes
 - If the country listed are not a part of the list, the function will return a "Code not Found" message
 
-### module_4
+### `module_4`
 
 #### data_country
 This function is designed for programmers who want to categorize countries by continent.
@@ -148,7 +150,7 @@ python
 print(get_info_by_country_code('JP'))  
 
 **Output:**
-('Japan', 'Asia')
+Japan, Asia
 
 #### `get_info_by_country_code(country_code)`
 This function uses the `get()` method to retrieve information about a country based on the provided country name.
@@ -161,7 +163,13 @@ python
 print(get_info_by_country_code('Indonesia'))  
 
 *Output:*
-('Indonesia', 'Asia')
+Indonesia, Asia
+
+### Modul 4 notes
+- An example of its use is that the programmer will import this library, then if the programmer calls the function by entering the country code and it will be converted to the continent of that country.
+- To search for country information based on the given country_code. This function will return the names of countries and continents as tuples. Otherwise, it will return a message that the country code is not found.
+- For the country name function, this function iterates through all the values ​​in data_country. For each value, it checks whether the country name (in lowercase) matches the given country_name (also in lowercase).
+If found, this function will return the country and continent names as tuples. If not found, it will return a message that the country name was not found.
 
 ### `module_5`
 
