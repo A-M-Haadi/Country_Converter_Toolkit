@@ -31,43 +31,43 @@ Here are some examples of how to use the Country-Converter-Toolkit package:
 ### Country Code
 
 ```python
-from Modul.modul1 import search_country_code
-search_country_code("Indonesia")
+from Modul.Modul1 import search_country_code
+print(search_country_code("Indonesia"))
 ```
 
 ### Country Info
 
 ```python
-from Modul.modul2 import get_country_info
+from Modul.Modul2 import get_country_info
 print(get_country_info("indonesia"))
 ```
 
 ### Country Languange
 
 ```python
-from Modul.modul3 import get_country_language
+from Modul.Modul3 import get_country_language
 print(get_country_language("Indonesia"))
 ```
 
 ### Continent of countries
 
 ```python
-from Modul.modul4 import get_info_by_country_code
+from Modul.Modul4 import get_info_by_country_code
 print(get_info_by_country_code("ID"))
 ```
 
 ### Currency Conversion
 
 ```python
-from Modul.modul5 import currency_conversion
+from Modul.Modul5 import currency_conversion
 print(currency_conversion(10, 'USD', 'IDR'))
 ```
 
 ### Time Zone
 
 ```python
-from Modul.modul6 import
-print(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00))
+from Modul.Modul6 import
+print(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00"))
 ```
 
 ## About The Module
@@ -79,8 +79,8 @@ This function contains the country name and country code
 
 **usage example:**
 ```python
-from Modul.modul1 import search_country_code
-search_country_code('Indonesia')
+from Modul.Modul1 import search_country_code
+print(search_country_code('Indonesia'))
 ```
 
 **output:**
@@ -98,8 +98,8 @@ This function is used to get a country's info based on the country name entered
 
 **Usage Example:**
 ```python
-from Modul.modul2 import get_country_info
-get_country_info("Indonesia")
+from Modul.Modul2 import get_country_info
+print(get_country_info("Indonesia"))
 ```
 
 **Output:**
@@ -120,8 +120,8 @@ This function is used to get a country's language  based on the country name ent
 
 **Usage Example:**
 ```python
-from Modul.modul3 import get_country_language
-get_country_language("Indonesia")
+from Modul.Modul3 import get_country_language
+print(get_country_language("Indonesia"))
 ```
 
 **Output:**
@@ -159,8 +159,10 @@ This function uses the `get()` method to retrieve information about a country ba
 - `country_name`: The expected input is a country name (example: "Afghanistan").
 
 **Example Usage:**
-python
-print(get_info_by_country_code('Indonesia'))  
+```python
+from Modul.Modul4 import get_info_by_country_code
+print(get_info_by_country_code('Indonesia'))
+``` 
 
 *Output:*
 Indonesia, Asia
@@ -182,8 +184,9 @@ This function is used to convert a number of currencies from one country to anot
 - `from_currency`: The origin of the currency you want to convert.
 - `to_currency`: Destination currency to be converted.
 
-**Contoh Penggunaan:**
+**Example Usage:**
 ```python
+from Modul.Modul5 import currency_conversion
 currency_conversion(10, 'USD', 'IDR')
 ```
 
@@ -212,6 +215,7 @@ This function is used to convert time from one time zone code to another.
 
 **Example Usage:**
 ```python
+from Modul.Modul6 import convert_time_by_code
 convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00")
 ```
 
@@ -226,6 +230,7 @@ This function is used to convert time from one city to another city with a diffe
 
 **Example Usage:**
 ```python
+from Modul.Modul6 import convert_city_time
 convert_city_time("Makassar", "New York", "2024-10-09 00:30:00")
 ```
 
@@ -244,3 +249,8 @@ convert_city_time("Makassar", "New York", "2024-10-09 00:30:00")
 ## contact
 For further questions, please contact
   - aal3it@gmail.com
+  - arielmufaddhal1@gmail.com
+  - diditikbalalfarauzy3943@gmail.com
+  - andisophieamri@gmail.com
+  - anisaandi1980@gmail.com
+  - azzahrasyam49@gmail.com
