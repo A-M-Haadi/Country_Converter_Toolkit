@@ -75,10 +75,12 @@ TIME_ZONES = {
     "VUT": 11,              # Vanuatu Time
     "TOT": 13,              # Tonga Time
     "GILT": 12,             # Gilbert Island Time
+    "BRT": -3,              # Brasilia Time
+    "SGT": 8,               # Singapore Time
 }
 
 CITY_TIME_ZONES = {
-   "Jakarta": "WIB", "Surabaya": "WIB", "Bandung": "WIB",         # Indonesia (Western Indonesia Time)
+    "Jakarta": "WIB", "Surabaya": "WIB", "Bandung": "WIB",         # Indonesia (Western Indonesia Time)
     "Bali": "WITA", "Makassar": "WITA", "Manado": "WITA",          # Indonesia (Central Indonesia Time)
     "Jayapura": "WIT",                                             # Indonesia (Eastern Indonesia Time)
     "Tokyo": "JST", "Osaka": "JST", "Nagoya": "JST",               # Japan
@@ -130,7 +132,7 @@ CITY_TIME_ZONES = {
     "Doha": "AST_Saudi",                                           # Qatar
     "Muscat": "GST_UAE",                                           # Oman
     "Kabul": "AFT",                                                # Afghanistan (Afghanistan Time)
-    "Islamabad": "PKT",                                            # Pakistan
+    "Islamabad": "PKT",                                             # Pakistan
     "Kathmandu": "NPT",                                            # Nepal (Nepal Time)
     "Dhaka": "BST",                                                # Bangladesh (Bangladesh Standard Time)
     "Yangon": "MMT",                                               # Myanmar (Myanmar Time)
@@ -174,15 +176,15 @@ CITY_TIME_ZONES = {
 }
 
 DST_RULES = {
-    # Amerika Serikat
+
     "EST_US": {
-        'start': (3, 2),  # Mulai minggu kedua bulan Maret
-        'end': (11, 1),   # Berakhir minggu pertama bulan November
-        'dst_offset': 1,  # Tambahan 1 jam
+        'start': (3, 2),  
+        'end': (11, 1),   
+        'dst_offset': 1,  
     },
     "PST_US": {
-        'start': (3, 2),  # Mulai minggu kedua bulan Maret
-        'end': (11, 1),   # Berakhir minggu pertama bulan November
+        'start': (3, 2),  
+        'end': (11, 1),   
         'dst_offset': 1,
     },
     "CST_US": {
@@ -200,16 +202,15 @@ DST_RULES = {
         'end': (11, 1),
         'dst_offset': 1,
     },
-    
-    # Australia
+   
     "AEDT": {
-        'start': (10, 1),  # Mulai minggu pertama bulan Oktober
-        'end': (4, 1),     # Berakhir minggu pertama bulan April
+        'start': (10, 1),  
+        'end': (4, 1),     
         'dst_offset': 1,
     },
     "AEST": {
-        'start': (10, 1),  # Mulai minggu pertama bulan Oktober
-        'end': (4, 1),     # Berakhir minggu pertama bulan April
+        'start': (10, 1),  
+        'end': (4, 1),     
         'dst_offset': 1,
     },
     "ACST": {
@@ -218,10 +219,9 @@ DST_RULES = {
         'dst_offset': 1,
     },
     
-    # Eropa
     "CET": {
-        'start': (3, 5),   # Mulai minggu terakhir bulan Maret
-        'end': (10, 5),    # Berakhir minggu terakhir bulan Oktober
+        'start': (3, 5),   
+        'end': (10, 5),    
         'dst_offset': 1,
     },
     "EET": {
@@ -235,98 +235,109 @@ DST_RULES = {
         'dst_offset': 1,
     },
     
-    # Selandia Baru
     "NZDT": {
-        'start': (9, 5),  # Mulai minggu terakhir bulan September
-        'end': (4, 1),    # Berakhir minggu pertama bulan April
+        'start': (9, 5),  
+        'end': (4, 1),    
         'dst_offset': 1,
     },
     
-    # Kanada
     "NST": {
         'start': (3, 2),
         'end': (11, 1),
         'dst_offset': 1,
     },
     
-    # Amerika Selatan
     "PYT": {
-        'start': (10, 1),  # Mulai minggu pertama bulan Oktober
-        'end': (3, 4),     # Berakhir minggu keempat bulan Maret
+        'start': (10, 1),  
+        'end': (3, 4),     
         'dst_offset': 1,
     },
     
-    # Lainnya
     "ChST": {
         'start': (3, 2),
         'end': (11, 1),
         'dst_offset': 1,
     },
     "TOT": {
-        'start': (9, 4),  # Mulai minggu keempat bulan September
-        'end': (4, 1),    # Berakhir minggu pertama bulan April
+        'start': (9, 4),  
+        'end': (4, 1),    
         'dst_offset': 1,
     }
 }
 
+def is_dst_active(tz: str, naive_time: datetime):
+    """
+    Check if DST is active for a given time zone and date.
+    """
+    if tz not in DST_RULES:
+        return False
+    
+    dst_start_month, dst_start_week = DST_RULES[tz]['start']
+    dst_end_month, dst_end_week = DST_RULES[tz]['end']
 
-# Memperbarui fungsi konversi agar sesuai dengan zona waktu yang unik
-def convert_time(city_from: str, city_to: str, time_str: str):
-    city_from_tz = CITY_TIME_ZONES.get(city_from.title(), None)
-    city_to_tz = CITY_TIME_ZONES.get(city_to.title(), None)
+    dst_start = datetime(naive_time.year, dst_start_month, 1)
+    dst_start += timedelta(days=(6 - dst_start.weekday()) + (dst_start_week - 1) * 7)
 
-    if city_from_tz is None or city_to_tz is None:
-        return "Kota tidak ditemukan."
+    dst_end = datetime(naive_time.year, dst_end_month, 1)
+    dst_end += timedelta(days=(6 - dst_end.weekday()) + (dst_end_week - 1) * 7)
 
-    from_offset = TIME_ZONES.get(city_from_tz, None)
-    to_offset = TIME_ZONES.get(city_to_tz, None)
+    return dst_start <= naive_time <= dst_end
 
-    if from_offset is None or to_offset is None:
-        return "Zona waktu tidak valid."
+def convert_time_by_code(from_tz: str, to_tz: str, time_str: str):
+    """
+    Convert time from time code to another, handling time zones and DST.
+    """
+    if from_tz not in TIME_ZONES or to_tz not in TIME_ZONES:
+        return "Invalid time zone."
 
-    # Parse waktu awal dari string
     naive_time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
 
-    # Penanganan DST untuk kota asal
-    if city_from_tz in DST_RULES:
-        dst_start_month, dst_start_week = DST_RULES[city_from_tz]['start']
-        dst_end_month, dst_end_week = DST_RULES[city_from_tz]['end']
+    from_offset = TIME_ZONES[from_tz]
+    to_offset = TIME_ZONES[to_tz]
 
-        # Cari tanggal DST start (Maret minggu kedua)
-        dst_start = datetime(naive_time.year, dst_start_month, 1)
-        dst_start += timedelta(days=(6 - dst_start.weekday()) + (dst_start_week - 1) * 7)
+    if from_tz in DST_RULES:
+        if is_dst_active(from_tz, naive_time):
+            from_offset += DST_RULES[from_tz]['dst_offset']
 
-        # Cari tanggal DST end (November minggu pertama)
-        dst_end = datetime(naive_time.year, dst_end_month, 1)
-        dst_end += timedelta(days=(6 - dst_end.weekday()) + (dst_end_week - 1) * 7)
+    if to_tz in DST_RULES:
+        if is_dst_active(to_tz, naive_time):
+            to_offset += DST_RULES[to_tz]['dst_offset']
 
-        if dst_start <= naive_time <= dst_end:
-            from_offset += DST_RULES[city_from_tz]['dst_offset']
-
-    # Penanganan DST untuk kota tujuan
-    if city_to_tz in DST_RULES:
-        dst_start_month, dst_start_week = DST_RULES[city_to_tz]['start']
-        dst_end_month, dst_end_week = DST_RULES[city_to_tz]['end']
-
-        # Cari tanggal DST start (Maret minggu kedua)
-        dst_start = datetime(naive_time.year, dst_start_month, 1)
-        dst_start += timedelta(days=(6 - dst_start.weekday()) + (dst_start_week - 1) * 7)
-
-        # Cari tanggal DST end (November minggu pertama)
-        dst_end = datetime(naive_time.year, dst_end_month, 1)
-        dst_end += timedelta(days=(6 - dst_end.weekday()) + (dst_end_week - 1) * 7)
-
-        if dst_start <= naive_time <= dst_end:
-            to_offset += DST_RULES[city_to_tz]['dst_offset']
-
-    # Hitung selisih waktu
     time_difference = to_offset - from_offset
-    hours = int(time_difference)
-    minutes = (time_difference % 1) * 60
-
-    # Tambahkan selisih waktu
-    converted_time = naive_time + timedelta(hours=hours, minutes=minutes)
+    converted_time = naive_time + timedelta(hours=int(time_difference), minutes=(time_difference % 1) * 60)
 
     return converted_time.strftime('%Y-%m-%d %H:%M:%S')
 
+def convert_city_time(city_from: str, city_to: str, time_str: str):
+    """
+    Convert time from one city to another, handling time zones and DST.
+    """
+    city_from = city_from.title()
+    city_to = city_to.title()
+    
+    city_from_tz = CITY_TIME_ZONES.get(city_from)
+    city_to_tz = CITY_TIME_ZONES.get(city_to)
+    
+    if not city_from_tz or not city_to_tz:
+        return "City not found."
+    
+    from_offset = TIME_ZONES.get(city_from_tz)
+    to_offset = TIME_ZONES.get(city_to_tz)
+    
+    if from_offset is None or to_offset is None:
+        return "Invalid time zone."
+    
+    naive_time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
+    
+    if city_from_tz in DST_RULES:
+        if is_dst_active(city_from_tz, naive_time):
+            from_offset += DST_RULES[city_from_tz]['dst_offset']
+    
+    if city_to_tz in DST_RULES:
+        if is_dst_active(city_to_tz, naive_time):
+            to_offset += DST_RULES[city_to_tz]['dst_offset']
+    
+    time_difference = to_offset - from_offset
+    converted_time = naive_time + timedelta(hours=int(time_difference), minutes=(time_difference % 1) * 60)
 
+    return converted_time.strftime('%Y-%m-%d %H:%M:%S')
