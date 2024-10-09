@@ -146,8 +146,10 @@ This function uses the get() method to retrieve information about a country base
 - country_code: The expected input is a country code (example: "AF").
 
 *Example Usage:*
-python
-print(get_info_by_country_code('JP'))  
+```python
+from Modul.Modul4 import get_info_by_country_code
+print(get_info_by_country_code('JP'))
+```
 
 **Output:**
 Japan, Asia
@@ -161,7 +163,7 @@ This function uses the `get()` method to retrieve information about a country ba
 **Example Usage:**
 ```python
 from Modul.Modul4 import get_info_by_country_code
-print(get_info_by_country_code('Indonesia'))
+print(get_info_by_country_code('ID'))
 ``` 
 
 *Output:*
@@ -187,7 +189,7 @@ This function is used to convert a number of currencies from one country to anot
 **Example Usage:**
 ```python
 from Modul.Modul5 import currency_conversion
-currency_conversion(10, 'USD', 'IDR')
+print(currency_conversion(10, 'USD', 'IDR'))
 ```
 
 **Output:**
@@ -216,7 +218,7 @@ This function is used to convert time from one time zone code to another.
 **Example Usage:**
 ```python
 from Modul.Modul6 import convert_time_by_code
-convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00")
+(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00"))
 ```
 
 **Output:**
@@ -231,7 +233,7 @@ This function is used to convert time from one city to another city with a diffe
 **Example Usage:**
 ```python
 from Modul.Modul6 import convert_city_time
-convert_city_time("Makassar", "New York", "2024-10-09 00:30:00")
+print(convert_city_time("Makassar", "New York", "2024-10-09 00:30:00"))
 ```
 
 **Output:**
