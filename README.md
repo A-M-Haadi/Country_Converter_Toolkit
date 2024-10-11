@@ -21,7 +21,7 @@
 To install the Country Converter Toolkit package, use pip:
 
 ```bash
-pip install Country_Converter_Toolkit
+pip install Country-Converter-Toolkit
 ```
 
 ## how to use
@@ -66,8 +66,13 @@ print(currency_conversion(10, 'USD', 'IDR'))
 ### Time Zone
 
 ```python
-from Modul.Modul6 import
+from Modul.Modul6 import convert_time_by_code
 print(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00"))
+```
+
+```python
+from Modul.Modul6 import convert_city_time
+print(convert_city_time("Makassar", "New York", "2024-10-09 00:30:00"))
 ```
 
 ## About The Module
@@ -88,7 +93,6 @@ print(search_country_code('Indonesia'))
 ID
 ```
 ### Module_1 Notes:
-- The country name entered must use capital letters in the first part of the country name.
   
 - If the country name entered does not exist or the user enters something other than the country name, "country not found" will appear.
 
@@ -104,7 +108,7 @@ print(get_country_info("Indonesia"))
 
 **Output:**
 ```
-Capital City : Jakarta, Currency : RUPIAH (IDR)
+Capital City : Jakarta, Currency : RUPIAH (IDR)
 ```
 
 **Module 3 Notes:**
@@ -218,7 +222,7 @@ This function is used to convert time from one time zone code to another.
 **Example Usage:**
 ```python
 from Modul.Modul6 import convert_time_by_code
-(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00"))
+print(convert_time_by_code("WITA", "JST", "2024-10-09 14:30:00"))
 ```
 
 **Output:**
