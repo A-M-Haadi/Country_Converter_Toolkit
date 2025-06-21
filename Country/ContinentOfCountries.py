@@ -186,12 +186,13 @@ data_country = {
 def get_info_by_country_code(country_code):
     info = data_country.get(country_code.upper())
     if info:
-        return info["name"], info["continent"]
+        return f"{info['name']}, {info['continent']}"
     else:
-        return "Country code not found", "Continent not found"
+        return "Country code not found, Continent not found"
 
 def get_info_by_country_name(country_name):
     for info in data_country.values():
         if info["name"].lower() == country_name.lower():
-            return info["name"], info["continent"]
-    return "Country name not found", "Continent not found"
+            return f"{info['name']}, {info['continent']}"
+    return "Country name not found, Continent not found"
+
